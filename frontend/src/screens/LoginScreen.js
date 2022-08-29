@@ -16,6 +16,7 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
+  // if location.search exists, pick up the URL link after "=" and add to redirect var 
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
