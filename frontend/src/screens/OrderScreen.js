@@ -19,14 +19,14 @@ import {
 const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id
 
-  const [sdkReady, setSdkReady] = useState(false)
+  const [sdkReady, setSdkReady] = useState(false)  // get the paypal SDK set ready 
 
   const dispatch = useDispatch()
 
-  const orderDetails = useSelector((state) => state.orderDetails)
+  const orderDetails = useSelector((state) => state.orderDetails)  // get the current order details 
   const { order, loading, error } = orderDetails
 
-  const orderPay = useSelector((state) => state.orderPay)
+  const orderPay = useSelector((state) => state.orderPay)   
   const { loading: loadingPay, success: successPay } = orderPay
 
   const orderDeliver = useSelector((state) => state.orderDeliver)
@@ -51,19 +51,20 @@ const OrderScreen = ({ match, history }) => {
       history.push('/login')
     }
 
-    const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get('/api/config/paypal')
+    const addPayPalScript = async () => {     // paypalscript is for making transaction 
+      const { data: clientId } = await axios.get('/api/config/paypal')   // get the ID from this URL 
+
       const script = document.createElement('script')
       script.type = 'text/javascript'
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
-      script.async = true
-      script.onload = () => {
+      script.async = true    // enable asynchro function 
+      script.onload = () => {  // when this gets component added and gets loaded, set SDK ready 
         setSdkReady(true)
       }
       document.body.appendChild(script)
     }
-
-    if (!order || successPay || successDeliver || order._id !== orderId) {
+     
+    if (!order || successPay || successDeliver || order._id !== orderId) {  // when order is successful, do below 
       dispatch({ type: ORDER_PAY_RESET })
       dispatch({ type: ORDER_DELIVER_RESET })
       dispatch(getOrderDetails(orderId))
@@ -75,10 +76,12 @@ const OrderScreen = ({ match, history }) => {
       }
     }
   }, [dispatch, orderId, successPay, successDeliver, order])
-
+    
+  // this gets triggered when payment is sucessful; (onSuccess)  
+  // paymentResult is, {order.total } 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
-    dispatch(payOrder(orderId, paymentResult))
+    dispatch(payOrder(orderId, paymentResult))  // pay the payment, send order ID and payment results like total charge, qty.
   }
 
   const deliverHandler = () => {
