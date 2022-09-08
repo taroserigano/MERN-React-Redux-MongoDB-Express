@@ -17,6 +17,7 @@ const LoginScreen = ({ location, history }) => {
   const { loading, error, userInfo } = userLogin
 
   // if location.search exists, pick up the URL link after "=" and add to redirect var 
+  // location.search function is to detech if any "search=?" exists in the URL 
   // most of times, this will just take you to localhost:3000/ "/" anyway though...
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
