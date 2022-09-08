@@ -16,9 +16,10 @@ export const cartReducer = (
 
       const existItem = state.cartItems.find((x) => x.product === item.product)
 
-      if (existItem) {
+      if (existItem) { 
         return {
           ...state,
+          // search through and when existItem match, update the quantity by item, otherwise keep them all "x" 
           cartItems: state.cartItems.map((x) =>
             x.product === existItem.product ? item : x
           ),
