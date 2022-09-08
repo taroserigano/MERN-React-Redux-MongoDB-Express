@@ -40,6 +40,18 @@ export const createOrder = (order) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.post(`/api/orders`, order, config)
+    
+            // back end created order like this, (and send back to frontend as "data"
+        //     const order = new Order({
+        //       orderItems,
+        //       user: req.user._id,
+        //       shippingAddress,
+        //       paymentMethod,
+        //       itemsPrice,
+        //       taxPrice,
+        //       shippingPrice,
+        //       totalPrice,
+        //     })
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
