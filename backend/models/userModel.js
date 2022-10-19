@@ -31,6 +31,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
 }
 
+// if password modified, hash with salt again 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next()
@@ -39,7 +40,7 @@ userSchema.pre('save', async function (next) {
   const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
 })
-
+// create User model in order for manipulation
 const User = mongoose.model('User', userSchema)
 
 export default User
