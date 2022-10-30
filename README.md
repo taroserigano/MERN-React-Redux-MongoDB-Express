@@ -2,7 +2,7 @@
 
 > eCommerce platform built with the MERN (MongoDB & Express & React-Redux & Node.js) stack.
 > <br><br>
-> Try the live website here: https://taroshop-online.herokuapp.com/
+
 
 ![screenshot](https://github.com/taroserigano/MERN-React-Redux-MongoDB-Express/blob/main/uploads/1.jpg)
 
